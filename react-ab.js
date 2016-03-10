@@ -45,10 +45,11 @@
         , path = "path=/"
         , date = null;
 
-      var date = new Date();
-      var days = 365;
-      date.setTime(date.getTime()+(days*24*60*60*1000));
-      var expires = "; expires="+date.toGMTString();
+      if (typeof seconds !== "undefined") {
+        date = new Date();
+        date.setTime(date.getTime()+(seconds*1000));
+        expires = "expires=" + date.toGMTString();
+      }
 
       document.cookie = [key, expires, path].join(";");
     }
@@ -147,7 +148,7 @@
       var index = Math.floor(this._random() * this.props.children.length)
         , variant = this.props.children[index].props.name;
 
-      this._set(variant);
+      this._set(variant, undefined, 365 * 24 * 60 * 60);
       this._index = index;
       this.props.onChoice(this.props.name, variant, index, false);
 
