@@ -45,11 +45,10 @@
         , path = "path=/"
         , date = null;
 
-      if (typeof seconds !== "undefined") {
-        date = new Date();
-        date.setTime(date.getTime()+(seconds*1000));
-        expires = "expires=" + date.toGMTString();
-      }
+      var date = new Date();
+      var days = 365;
+      date.setTime(date.getTime()+(days*24*60*60*1000));
+      var expires = "; expires="+date.toGMTString();
 
       document.cookie = [key, expires, path].join(";");
     }
